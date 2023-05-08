@@ -80,8 +80,9 @@ export async function createForceDirectedGraph() {
     .attr("r", 5)
     .attr("fill", (d: GraphNode) => color(nodeCommunityMap.get(d.id) ?? ""))
     .call(initDrag as unknown as (selection: Selection<BaseType | SVGCircleElement, GraphNode, BaseType, unknown>) => void)
-    .on("mouseover", (event: MouseEvent, d: GraphNode) => showTooltip(event, d))
-    .on("mouseout", hideTooltip);
+    .on("click", (event: MouseEvent, d: GraphNode) => showTooltip(event, d));
+    // .on("mouseover", (event: MouseEvent, d: GraphNode) => showTooltip(event, d))
+    // .on("mouseout", hideTooltip);
 
   initDrag(node);
 
@@ -171,20 +172,27 @@ export async function createForceDirectedGraph() {
    * d (GraphNode) - The node for which to show the tooltip.
    */
   function showTooltip(event: MouseEvent, d: GraphNode) {
-    const tooltip = document.getElementById("tooltip");
-    if (!tooltip) return;
+    const communityValue = document.getElementById("community-value");
+    const nodeIdValue = document.getElementById("node-id-value");
+    if (!communityValue || !nodeIdValue) return;
 
-    tooltip.innerHTML = `Community: ${d.community}`;
-    tooltip.style.opacity = "1";
+    // If the current community value and node ID are displayed, hide them. Otherwise, show the new values.
+    if (communityValue.textContent === d.community && nodeIdValue.textContent === d.id) {
+      communityValue.textContent = "";
+      nodeIdValue.textContent = "";
+    } else {
+      communityValue.textContent = d.community;
+      nodeIdValue.textContent = d.id;
+    }
   }
 
   /**
    * Hides the tooltip.
    */
   function hideTooltip() {
-    const tooltip = document.getElementById("tooltip");
-    if (!tooltip) return;
+    const communityValue = document.getElementById("community-value");
+    if (!communityValue) return;
 
-    tooltip.style.opacity = "0";
+    communityValue.textContent = "";
   }
 }

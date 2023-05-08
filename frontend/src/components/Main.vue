@@ -6,7 +6,11 @@
     </div>
     <div id="graph-container">
       <svg id="graph"></svg>
-      <div id="tooltip" style="opacity: 0; position: absolute; pointer-events: none; background-color: rgba(255, 255, 255, 0.7); padding: 5px; border-radius: 3px;"></div>
+      <div id="tooltip">
+        <span>Node ID: <span id="node-id-value"></span></span>
+        <br />
+        <span>Community: <span id="community-value"></span></span>
+      </div>
     </div>
   </div>
 </template>
@@ -70,15 +74,19 @@ a {
 }
 
 #tooltip {
-  opacity: 0;
   position: absolute;
   top: 10px;
-  right: 4em;
-  background-color: rgba(255, 255, 255, 0.7);
+  left: 10px;
   font-size: 2em;
-  padding: 5px;
-  border-radius: 3px;
   pointer-events: none;
-  transition: opacity 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#tooltip span {
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
 }
 </style>
