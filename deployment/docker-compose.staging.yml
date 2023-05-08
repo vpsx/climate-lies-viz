@@ -1,0 +1,11 @@
+# Deployment of the backend and frontend for the staging environment
+# Deployed on NERC 1 Server
+# Deployed at https://mpc.sail.codes
+version: "3.8"
+services:
+  clv-frontend:
+    container_name: clv-frontend
+    restart: always
+    image: hicsail/climate-lies-viz:main
+    ports:
+      - 3011:80
