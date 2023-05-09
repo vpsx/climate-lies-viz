@@ -180,14 +180,4 @@ export async function createForceDirectedGraph() {
       nodeIdValue.textContent = d.id;
     }
   }
-
-  /**
-   * Hides the tooltip.
-   */
-  function hideTooltip() {
-    const communityValue = document.getElementById("community-value");
-    if (!communityValue) return;
-
-    communityValue.textContent = "";
-  }
 }

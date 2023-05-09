@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { createForceDirectedGraph } from './ForceDirectedGraph';
 import "./GraphVisualization.css";
 
