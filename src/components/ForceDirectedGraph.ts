@@ -51,9 +51,6 @@ export async function createForceDirectedGraph() {
   }
 
   const nodeCommunityMap = new Map(nodeCommunityData.map((node: GraphNode) => [node.id, node.community]));
-
-  const width = 960;
-  const height = 600;
   const svg = d3.select("#graph");
   const color = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -81,8 +78,6 @@ export async function createForceDirectedGraph() {
     .attr("fill", (d: GraphNode) => color(nodeCommunityMap.get(d.id) ?? ""))
     .call(initDrag as unknown as (selection: Selection<BaseType | SVGCircleElement, GraphNode, BaseType, unknown>) => void)
     .on("click", (event: MouseEvent, d: GraphNode) => showTooltip(event, d));
-    // .on("mouseover", (event: MouseEvent, d: GraphNode) => showTooltip(event, d))
-    // .on("mouseout", hideTooltip);
 
   initDrag(node);
 

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import GraphVisualization from "./components/GraphVisualization";
 
 function App() {
