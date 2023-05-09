@@ -110,7 +110,7 @@ export async function createForceDirectedGraph() {
         >
       ) => void
     )
-    .on("click", (event: MouseEvent, d: GraphNode) => showTooltip(event, d));
+    .on("click", (event: MouseEvent, d: GraphNode) => showInfo(d));
 
   initDrag(node);
 
@@ -213,13 +213,12 @@ export async function createForceDirectedGraph() {
   }
 
   /**
-   * Displays a tooltip with community information at the cursor position.
+   * Displays community information on click.
    *
    * inputs:
-   * event (MouseEvent) - The mouse event that triggered the tooltip.
    * d (GraphNode) - The node for which to show the tooltip.
    */
-  function showTooltip(event: MouseEvent, d: GraphNode) {
+  function showInfo(d: GraphNode) {
     const communityValue = document.getElementById("community-value");
     const nodeIdValue = document.getElementById("node-id-value");
     if (!communityValue || !nodeIdValue) return;
