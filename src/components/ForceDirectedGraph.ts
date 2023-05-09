@@ -6,14 +6,19 @@
  * to drag nodes and view community information on hover.
  */
 
-import * as d3 from 'd3';
-import { BaseType, Selection, SimulationNodeDatum, SimulationLinkDatum } from 'd3';
-import edgeListDataJson from '../assets/edge_list.json';
-import nodeCommunityDataJson from '../assets/node_community.json';
+import * as d3 from "d3";
+import {
+  BaseType,
+  Selection,
+  SimulationNodeDatum,
+  SimulationLinkDatum,
+} from "d3";
+import edgeListDataJson from "../assets/edge_list.json";
+import nodeCommunityDataJson from "../assets/node_community.json";
 
 interface Edge {
-  source: SimulationLinkDatum<GraphNode>['source'];
-  target: SimulationLinkDatum<GraphNode>['target'];
+  source: SimulationLinkDatum<GraphNode>["source"];
+  target: SimulationLinkDatum<GraphNode>["target"];
   value: number;
 }
 
@@ -33,39 +38,58 @@ interface GraphNode extends SimulationNodeDatum {
  */
 export async function createForceDirectedGraph() {
   // Map edge list data from JSON to Edge objects
-  const edgeListData: Edge[] = edgeListDataJson.map((edge: any): Edge => ({
-    source: edge.user,
-    target: edge.following,
-    value: 1
-  }));
+  const edgeListData: Edge[] = edgeListDataJson.map(
+    (edge: any): Edge => ({
+      source: edge.user,
+      target: edge.following,
+      value: 1,
+    })
+  );
 
   // Map node community data from JSON to GraphNode objects
-  const nodeCommunityData: GraphNode[] = nodeCommunityDataJson.map((node: any): GraphNode => ({
-    ...node,
-    id: node.node,
-  }));
+  const nodeCommunityData: GraphNode[] = nodeCommunityDataJson.map(
+    (node: any): GraphNode => ({
+      ...node,
+      id: node.node,
+    })
+  );
 
   if (!edgeListData || !nodeCommunityData) {
-    console.error('Error: edgeListData or nodeCommunityData is undefined');
+    console.error("Error: edgeListData or nodeCommunityData is undefined");
     return;
   }
 
-  const nodeCommunityMap = new Map(nodeCommunityData.map((node: GraphNode) => [node.id, node.community]));
+  const nodeCommunityMap = new Map(
+    nodeCommunityData.map((node: GraphNode) => [node.id, node.community])
+  );
   const svg = d3.select("#graph");
   const color = d3.scaleOrdinal(d3.schemeCategory10);
 
-  const simulation = d3.forceSimulation(nodeCommunityData)
-    .force("link", d3.forceLink<GraphNode, SimulationLinkDatum<GraphNode>>(edgeListData).id(d => d.id))
+  const simulation = d3
+    .forceSimulation(nodeCommunityData)
+    .force(
+      "link",
+      d3
+        .forceLink<GraphNode, SimulationLinkDatum<GraphNode>>(edgeListData)
+        .id((d) => d.id)
+    )
     .force("charge", d3.forceManyBody())
-    .force("center", d3.forceCenter(parseFloat(svg.style("width")) / 2, parseFloat(svg.style("height")) / 2));
+    .force(
+      "center",
+      d3.forceCenter(
+        parseFloat(svg.style("width")) / 2,
+        parseFloat(svg.style("height")) / 2
+      )
+    );
 
-  const link = svg.append("g")
+  const link = svg
+    .append("g")
     .selectAll("line")
     .data(edgeListData)
     .join("line")
     .attr("stroke", "#fff")
     .attr("stroke-opacity", 1)
-    .attr("stroke-width", d => Math.sqrt(d.value));
+    .attr("stroke-width", (d) => Math.sqrt(d.value));
 
   const node = svg
     .append("g")
@@ -76,7 +100,16 @@ export async function createForceDirectedGraph() {
     .join("circle")
     .attr("r", 5)
     .attr("fill", (d: GraphNode) => color(nodeCommunityMap.get(d.id) ?? ""))
-    .call(initDrag as unknown as (selection: Selection<BaseType | SVGCircleElement, GraphNode, BaseType, unknown>) => void)
+    .call(
+      initDrag as unknown as (
+        selection: Selection<
+          BaseType | SVGCircleElement,
+          GraphNode,
+          BaseType,
+          unknown
+        >
+      ) => void
+    )
     .on("click", (event: MouseEvent, d: GraphNode) => showTooltip(event, d));
 
   initDrag(node);
@@ -88,9 +121,7 @@ export async function createForceDirectedGraph() {
       .attr("x2", (d: Edge): number => (isNode(d.target) ? d.target.x! : 0))
       .attr("y2", (d: Edge): number => (isNode(d.target) ? d.target.y! : 0));
 
-    node
-      .attr("cx", (d: GraphNode) => d.x!)
-      .attr("cy", (d: GraphNode) => d.y!);
+    node.attr("cx", (d: GraphNode) => d.x!).attr("cy", (d: GraphNode) => d.y!);
   });
 
   /**
@@ -100,7 +131,10 @@ export async function createForceDirectedGraph() {
    * event (d3.D3DragEvent) - The drag event.
    * d (GraphNode) - The node being dragged.
    */
-  function dragstart(event: d3.D3DragEvent<Element, unknown, unknown>, d: GraphNode) {
+  function dragstart(
+    event: d3.D3DragEvent<Element, unknown, unknown>,
+    d: GraphNode
+  ) {
     if (!event.active) simulation.alphaTarget(0.3).restart();
     d.fx = d.x;
     d.fy = d.y;
@@ -113,7 +147,10 @@ export async function createForceDirectedGraph() {
    * event (d3.D3DragEvent) - The drag event.
    * d (GraphNode) - The node being dragged.
    */
-  function dragged(event: d3.D3DragEvent<Element, unknown, unknown>, d: GraphNode) {
+  function dragged(
+    event: d3.D3DragEvent<Element, unknown, unknown>,
+    d: GraphNode
+  ) {
     d.fx = event.x;
     d.fy = event.y;
   }
@@ -125,7 +162,10 @@ export async function createForceDirectedGraph() {
    * event (d3.D3DragEvent) - The drag event.
    * d (GraphNode) - The node being dragged.
    */
-  function dragend(event: d3.D3DragEvent<Element, unknown, unknown>, d: GraphNode) {
+  function dragend(
+    event: d3.D3DragEvent<Element, unknown, unknown>,
+    d: GraphNode
+  ) {
     if (!event.active) simulation.alphaTarget(0);
     d.fx = null;
     d.fy = null;
@@ -137,10 +177,21 @@ export async function createForceDirectedGraph() {
    * inputs:
    * selection (d3.Selection) - A D3 selection of nodes to enable dragging on.
    */
-  function initDrag(selection: d3.Selection<d3.BaseType | SVGCircleElement, GraphNode, BaseType, unknown>) {
+  function initDrag(
+    selection: d3.Selection<
+      d3.BaseType | SVGCircleElement,
+      GraphNode,
+      BaseType,
+      unknown
+    >
+  ) {
     (selection as any).call(
-      d3.drag()
-        .on("start", dragstart as (this: Element, event: any, d: unknown) => void)
+      d3
+        .drag()
+        .on(
+          "start",
+          dragstart as (this: Element, event: any, d: unknown) => void
+        )
         .on("drag", dragged as (this: Element, event: any, d: unknown) => void)
         .on("end", dragend as (this: Element, event: any, d: unknown) => void)
     );
@@ -156,7 +207,9 @@ export async function createForceDirectedGraph() {
    * (boolean) - True if the object is a GraphNode, false otherwise.
    */
   function isNode(obj: any): obj is GraphNode {
-    return obj && typeof obj.id === 'string' && typeof obj.community === 'string';
+    return (
+      obj && typeof obj.id === "string" && typeof obj.community === "string"
+    );
   }
 
   /**
@@ -172,7 +225,10 @@ export async function createForceDirectedGraph() {
     if (!communityValue || !nodeIdValue) return;
 
     // If the current community value and node ID are displayed, hide them. Otherwise, show the new values.
-    if (communityValue.textContent === d.community && nodeIdValue.textContent === d.id) {
+    if (
+      communityValue.textContent === d.community &&
+      nodeIdValue.textContent === d.id
+    ) {
       communityValue.textContent = "";
       nodeIdValue.textContent = "";
     } else {
