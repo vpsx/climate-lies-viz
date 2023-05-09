@@ -66,7 +66,7 @@ export async function createForceDirectedGraph() {
     .selectAll("line")
     .data(edgeListData)
     .join("line")
-    .attr("stroke", "#000")
+    .attr("stroke", "#fff")
     .attr("stroke-opacity", 1)
     .attr("stroke-width", d => Math.sqrt(d.value));
 
