@@ -110,7 +110,7 @@ export async function createForceDirectedGraph() {
         >
       ) => void
     )
-    .on("click", (event: MouseEvent, d: GraphNode) => showInfo(d));
+    .on("click", (event: MouseEvent, d: GraphNode) => showInfo(event, d));
 
   initDrag(node);
 
@@ -216,23 +216,26 @@ export async function createForceDirectedGraph() {
    * Displays community information on click.
    *
    * inputs:
+   * event (MouseEvent) - The mouse event that triggered the tooltip.
    * d (GraphNode) - The node for which to show the tooltip.
    */
-  function showInfo(d: GraphNode) {
-    const communityValue = document.getElementById("community-value");
-    const nodeIdValue = document.getElementById("node-id-value");
-    if (!communityValue || !nodeIdValue) return;
+  function showInfo(event: MouseEvent, d: GraphNode) {
+    if (event) {
+      const communityValue = document.getElementById("community-value");
+      const nodeIdValue = document.getElementById("node-id-value");
+      if (!communityValue || !nodeIdValue) return;
 
-    // If the current community value and node ID are displayed, hide them. Otherwise, show the new values.
-    if (
-      communityValue.textContent === d.community &&
-      nodeIdValue.textContent === d.id
-    ) {
-      communityValue.textContent = "";
-      nodeIdValue.textContent = "";
-    } else {
-      communityValue.textContent = d.community;
-      nodeIdValue.textContent = d.id;
+      // If the current community value and node ID are displayed, hide them. Otherwise, show the new values.
+      if (
+        communityValue.textContent === d.community &&
+        nodeIdValue.textContent === d.id
+      ) {
+        communityValue.textContent = "";
+        nodeIdValue.textContent = "";
+      } else {
+        communityValue.textContent = d.community;
+        nodeIdValue.textContent = d.id;
+      }
     }
   }
 }
