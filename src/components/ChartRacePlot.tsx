@@ -95,7 +95,7 @@ const ChartRacePlot: React.FC = () => {
       <ChartRace
         data={data}
         backgroundColor={cLThemeColors.cream}
-        width={width}
+        width={width-8}
         // padding={12}
         // itemHeight={58}
         gap={8}
