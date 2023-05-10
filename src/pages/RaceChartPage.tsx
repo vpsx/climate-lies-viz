@@ -1,15 +1,17 @@
 import ChartRacePlot from "../components/ChartRacePlot";
-import { Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import { cLThemeColors } from "../constants/colors";
 
 export default function RaceChartPage() {
   return (
-    <Stack
+    <Box
+      height="100vh"
+      padding={2}
       style={{
         backgroundColor: cLThemeColors.cream,
       }}
     >
       <ChartRacePlot />
-    </Stack>
+    </Box>
   );
 }

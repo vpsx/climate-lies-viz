@@ -6,6 +6,7 @@ import tweetsJson from "../assets/tweet_aggregate.json";
 import { cLThemeColors } from "../constants/colors";
 import { climateArguments } from "../constants/tweetsMetadata";
 import { getDisplayDate, getPreviousDate } from "../utils/dateUtils";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 type TweetsJson = {
   [key: string]: {
@@ -69,6 +70,9 @@ const ChartRacePlot: React.FC = () => {
     getDisplayDate(defaultChartDate)
   );
 
+  const { height, width } = useWindowDimensions();
+  console.log("height", height, "width", width);
+
   const handleChange = (value: string) => {
     setData(getChartData(getBestMatchDateInTweetsJsonFile(value)));
     setSelectedDate(getDisplayDate(value));
@@ -91,7 +95,7 @@ const ChartRacePlot: React.FC = () => {
       <ChartRace
         data={data}
         backgroundColor={cLThemeColors.cream}
-        width={1000}
+        width={width-8}
         // padding={12}
         // itemHeight={58}
         gap={8}
