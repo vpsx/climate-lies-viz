@@ -7,6 +7,13 @@ import { cLThemeColors } from "../constants/colors";
 import { climateArguments } from "../constants/tweetsMetadata";
 import { getPreviousDate } from "../utils/dateUtils";
 
+type TweetsJson = {
+  [key: string]: {
+    [key: string]: number;
+  };
+};
+const typedTweetsJson: TweetsJson = tweetsJson;
+
 //eyeballed to match about halfway of the date slider
 const defaultChartDate = "07-01-2015";
 
@@ -44,16 +51,20 @@ const getChartData = (dailyAggregate: { [key: string]: number }) => {
  * that precedes the given date
  * @param dateString
  */
-function getBestMatchDateInTweetsJsonFile(dateString: string) {
+function getBestMatchDateInTweetsJsonFile(dateString: string): {
+  [key: string]: number;
+} {
   let dateStr = dateString;
-  while (!(dateStr in tweetsJson)) {
+  while (!(dateStr in typedTweetsJson)) {
     dateStr = getPreviousDate(dateStr);
   }
-  return tweetsJson[dateStr];
+  return typedTweetsJson[dateStr];
 }
 
 const ChartRacePlot: React.FC = () => {
-  const [data, setData] = useState(getChartData(getBestMatchDateInTweetsJsonFile(defaultChartDate)));
+  const [data, setData] = useState(
+    getChartData(getBestMatchDateInTweetsJsonFile(defaultChartDate))
+  );
 
   const handleChange = (value: string) => {
     setData(getChartData(getBestMatchDateInTweetsJsonFile(value)));
