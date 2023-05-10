@@ -1,5 +1,6 @@
 import moment from "moment";
 import { earliestTweetDate } from "../constants/tweetsMetadata";
+import { format } from "date-fns";
 
 const dateFormat = "DD-MM-YYYY";
 
@@ -19,4 +20,9 @@ function convertSliderValueToDate(value: number) {
   return moment(newDate).format(dateFormat);
 }
 
-export { convertSliderValueToDate, getPreviousDate, calculateDateRange };
+const getDisplayDate = (dateStr: string)=>{
+    const newDate = moment(dateStr, dateFormat).toDate();; 
+    return format(newDate, "PPP");
+  }
+
+export { convertSliderValueToDate, getPreviousDate, getDisplayDate, calculateDateRange };
