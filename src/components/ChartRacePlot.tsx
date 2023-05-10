@@ -1,11 +1,11 @@
-import { Typography } from "@mui/material";
+import { Typography, Stack } from "@mui/material";
 import React, { useState } from "react";
 import ChartRace from "react-chart-race";
 import DateSlider from "./DateSlider";
 import tweetsJson from "../assets/tweet_aggregate.json";
 import { cLThemeColors } from "../constants/colors";
 import { climateArguments } from "../constants/tweetsMetadata";
-import { getPreviousDate } from "../utils/dateUtils";
+import { getDisplayDate, getPreviousDate } from "../utils/dateUtils";
 
 type TweetsJson = {
   [key: string]: {
@@ -65,32 +65,43 @@ const ChartRacePlot: React.FC = () => {
   const [data, setData] = useState(
     getChartData(getBestMatchDateInTweetsJsonFile(defaultChartDate))
   );
+  const [selectedDate, setSelectedDate] = useState(
+    getDisplayDate(defaultChartDate)
+  );
 
   const handleChange = (value: string) => {
     setData(getChartData(getBestMatchDateInTweetsJsonFile(value)));
+    setSelectedDate(getDisplayDate(value));
   };
 
   return (
-    <>
+    <div>
       <Typography style={titleStyle}>Climate </Typography>
+      <Typography style={titleStyle}>&nbsp;</Typography>
       <Typography style={{ ...titleStyle, color: cLThemeColors.red }}>
         Lies
       </Typography>
+      <Typography style={titleStyle}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
+      <Typography style={titleStyle}>{selectedDate}</Typography>
+      <Stack style={{ height: 30 }} />
+      <Stack style={{ padding: 40 }}>
+        <DateSlider onChange={handleChange} />
+      </Stack>
+      <Stack style={{ height: 25 }} />
       <ChartRace
         data={data}
         backgroundColor={cLThemeColors.cream}
-        width={760}
-        padding={12}
-        itemHeight={58}
-        gap={12}
+        width={1000}
+        // padding={12}
+        // itemHeight={58}
+        gap={8}
         titleStyle={{
           font: "normal 400 13px Arial",
           color: cLThemeColors.black,
         }}
         valueStyle={{ font: "normal 800 11px Arial", color: cLThemeColors.red }}
       />
-      <DateSlider onChange={handleChange} />
-    </>
+    </div>
   );
 };
 export default ChartRacePlot;

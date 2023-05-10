@@ -37,11 +37,10 @@ export default function DateSlider(props: {
 
   return (
     <Slider
-      aria-label="Always visible"
       defaultValue={Math.floor(maxSliderValue / 2)}
       valueLabelFormat={convertSliderValueToDate}
       marks={marks}
-      valueLabelDisplay="on"
+      valueLabelDisplay="off"
       min={0}
       max={maxSliderValue}
       onChange={handleSliderChange}
