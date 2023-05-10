@@ -84,7 +84,7 @@ const ChartRacePlot: React.FC = () => {
       <Typography style={titleStyle}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
       <Typography style={titleStyle}>{selectedDate}</Typography>
       <Stack style={{ height: 30 }} />
-      <Stack style={{ padding: 20 }}>
+      <Stack style={{ padding: 40 }}>
         <DateSlider onChange={handleChange} />
       </Stack>
       <Stack style={{ height: 25 }} />
