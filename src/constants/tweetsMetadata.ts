@@ -36,7 +36,7 @@ const climateArguments: {
   };
 
 //earliest and latest climate lie tweet date. copied from given csv file
-const earliestTweetDate = "30-04-2007"; 
+const earliestTweetDate = "01-02-2007"; 
 const latestTweetDate = "31-12-2022";
 
 export {climateArguments, earliestTweetDate, latestTweetDate} 
