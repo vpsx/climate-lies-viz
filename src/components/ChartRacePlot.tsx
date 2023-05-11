@@ -70,8 +70,7 @@ const ChartRacePlot: React.FC = () => {
     getDisplayDate(defaultChartDate)
   );
 
-  const { height, width } = useWindowDimensions();
-  console.log("height", height, "width", width);
+  const { width } = useWindowDimensions();
 
   const handleChange = (value: string) => {
     setData(getChartData(getBestMatchDateInTweetsJsonFile(value)));
@@ -95,7 +94,7 @@ const ChartRacePlot: React.FC = () => {
       <ChartRace
         data={data}
         backgroundColor={cLThemeColors.cream}
-        width={width-8}
+        width={width - 8}
         // padding={12}
         // itemHeight={58}
         gap={8}
