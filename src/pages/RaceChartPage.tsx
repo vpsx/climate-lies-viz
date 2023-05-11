@@ -5,7 +5,7 @@ import { cLThemeColors } from "../constants/colors";
 export default function RaceChartPage() {
   return (
     <Box
-      height="100vh"
+      minHeight="100vh"
       padding={2}
       style={{
         backgroundColor: cLThemeColors.cream,

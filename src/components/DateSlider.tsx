@@ -36,7 +36,7 @@ const iconStyle = {
 export default function DateSlider(props: {
   onChange: (date: string) => void;
 }) {
-  const [value, setValue] = useState<number>(Math.floor(maxSliderValue /2));
+  const [value, setValue] = useState<number>(Math.floor(maxSliderValue * 0.02));
   const [playing, setPlaying] = useState(true);
   const handleSliderChange = (
     _: Event,
