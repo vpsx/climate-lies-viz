@@ -70,7 +70,7 @@ const ChartRacePlot: React.FC = () => {
     getDisplayDate(defaultChartDate)
   );
 
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const handleChange = (value: string) => {
     setData(getChartData(getBestMatchDateInTweetsJsonFile(value)));
