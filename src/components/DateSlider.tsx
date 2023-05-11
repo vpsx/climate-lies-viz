@@ -1,4 +1,8 @@
-import Slider from "@mui/material/Slider";
+import { Slider, Stack, IconButton } from "@mui/material";
+import PlayIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
+
+import { useState, useEffect } from "react";
 import {
   earliestTweetDate,
   latestTweetDate,
@@ -24,26 +28,73 @@ const marks = [
   },
 ];
 
+const iconStyle = {
+  width: 50,
+  height: 50,
+};
+
 export default function DateSlider(props: {
   onChange: (date: string) => void;
 }) {
+  const [value, setValue] = useState<number>(Math.floor(maxSliderValue /2));
+  const [playing, setPlaying] = useState(true);
   const handleSliderChange = (
     _: Event,
     value: number | Array<number>,
     __: number
   ) => {
     props.onChange(convertSliderValueToDate(value as number));
+    setValue(value as number);
   };
 
+  useEffect(() => {
+    if (playing) {
+      const sliderTimer = setInterval(() => {
+        setValue((value) => {
+          //loop around
+          if (value >= maxSliderValue) {
+            return 1;
+          } else {
+            return value + Math.floor(maxSliderValue / 2000);
+          }
+        });
+        props.onChange(convertSliderValueToDate(value as number));
+      }, 100);
+      return () => {
+        clearInterval(sliderTimer);
+      };
+    }
+  }, [playing, value]);
+
   return (
-    <Slider
-      defaultValue={Math.floor(maxSliderValue / 2)}
-      valueLabelFormat={convertSliderValueToDate}
-      marks={marks}
-      valueLabelDisplay="off"
-      min={0}
-      max={maxSliderValue}
-      onChange={handleSliderChange}
-    />
+    <Stack
+      style={{
+        flexDirection: "row",
+      }}
+    >
+      <IconButton
+        style={{ ...iconStyle, marginLeft: -35 }}
+        onClick={() => {
+          setPlaying(!playing);
+        }}
+      >
+        {playing ? (
+          <PauseIcon style={iconStyle} />
+        ) : (
+          <PlayIcon style={iconStyle} />
+        )}
+      </IconButton>
+      <Stack style={{ width: 70 }} />
+      <Slider
+        value={value}
+        defaultValue={Math.floor(maxSliderValue / 2)}
+        valueLabelFormat={convertSliderValueToDate}
+        marks={marks}
+        valueLabelDisplay="off"
+        min={0}
+        max={maxSliderValue}
+        onChange={handleSliderChange}
+      />
+    </Stack>
   );
 }
