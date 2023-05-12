@@ -20,9 +20,14 @@ function convertSliderValueToDate(value: number) {
   return moment(newDate).format(dateFormat);
 }
 
-const getDisplayDate = (dateStr: string)=>{
-    const newDate = moment(dateStr, dateFormat).toDate();; 
-    return format(newDate, "PPP");
-  }
+const getDisplayDate = (dateStr: string) => {
+  const newDate = moment(dateStr, dateFormat).toDate();
+  return format(newDate, "LLLL, yyyy");
+};
 
-export { convertSliderValueToDate, getPreviousDate, getDisplayDate, calculateDateRange };
+export {
+  convertSliderValueToDate,
+  getPreviousDate,
+  getDisplayDate,
+  calculateDateRange,
+};

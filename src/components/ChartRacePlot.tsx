@@ -94,7 +94,7 @@ const ChartRacePlot: React.FC = () => {
       <ChartRace
         data={data}
         backgroundColor={cLThemeColors.cream}
-        width={width-90}
+        width={width - 90}
         gap={8}
         titleStyle={{
           font: "normal 400 13px Arial",
