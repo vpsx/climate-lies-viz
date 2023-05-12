@@ -32,7 +32,7 @@ const iconStyle = {
   width: 50,
   height: 50,
 };
-
+const animationSpeed = 70;
 export default function DateSlider(props: {
   onChange: (date: string) => void;
 }) {
@@ -55,11 +55,11 @@ export default function DateSlider(props: {
           if (value >= maxSliderValue) {
             return 1;
           } else {
-            return value + Math.floor(maxSliderValue / 2000);
+            return value + Math.floor(maxSliderValue / 1700);
           }
         });
         props.onChange(convertSliderValueToDate(value as number));
-      }, 100);
+      }, animationSpeed);
       return () => {
         clearInterval(sliderTimer);
       };
