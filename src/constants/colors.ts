@@ -1,11 +1,12 @@
 const cLThemeColors = {
     cream: '#e9e9df',
-    red: '#f05a29',
-    yellow: '#e5e653',
-    blue: '#a9d0e3',
     black: '#133138',
-    pink: '#eca389',
-    grey: '#979da0'
+    red: '#f04770',
+    yellow: '#ffd169',
+    blue: '#0f8bb1',
+    pink: '#06d7a0',
+    grey: '#083b4c',
+    lieRed:"#f05a29", 
   };
 
   export { cLThemeColors}
