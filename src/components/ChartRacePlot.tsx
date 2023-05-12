@@ -7,6 +7,7 @@ import { cLThemeColors } from "../constants/colors";
 import { climateArguments } from "../constants/tweetsMetadata";
 import { getDisplayDate, getPreviousDate } from "../utils/dateUtils";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import ChartRaceLegend from "./ChartRaceLegend";
 
 type TweetsJson = {
   [key: string]: {
@@ -91,6 +92,7 @@ const ChartRacePlot: React.FC = () => {
         <DateSlider onChange={handleChange} />
       </Stack>
       <Stack style={{ height: 25 }} />
+      <ChartRaceLegend/>
       <ChartRace
         data={data}
         backgroundColor={cLThemeColors.cream}

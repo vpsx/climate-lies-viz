@@ -35,8 +35,16 @@ const climateArguments: {
     '5_3': { label: 'Climate is conspiracy', color: cLThemeColors.grey }
   };
 
+  const superClaims = {
+    "1": {title: "Global warming is not happening" , color: cLThemeColors.red},
+    "2": {title: "Human Greenhouse Gases are not causing global warming" , color: cLThemeColors.pink},
+    "3": {title: "Climate impacts are not bad" , color: cLThemeColors.yellow},
+    "4": {title: "Climate solutions won't work" , color: cLThemeColors.blue},
+    "5": {title: "Climate movement/science is unreliable" , color: cLThemeColors.grey}
+  }
+
 //earliest and latest climate lie tweet date. copied from given csv file
 const earliestTweetDate = "01-02-2007"; 
 const latestTweetDate = "31-12-2022";
 
-export {climateArguments, earliestTweetDate, latestTweetDate} 
+export {climateArguments, superClaims, earliestTweetDate, latestTweetDate} 
