@@ -1,6 +1,5 @@
 import { Typography, Stack } from "@mui/material";
 import React from "react";
-import { cLThemeColors } from "../constants/colors";
 import { superClaims } from "../constants/tweetsMetadata";
 
 const titleStyle = {
@@ -9,10 +8,10 @@ const titleStyle = {
   display: "inline-block",
 };
 
-const ChartRaceLegendItem: React.FC = (props: {
+const ChartRaceLegendItem: React.FC<{
   title: string;
   color: string;
-}) => {
+}> = (props: { title: string; color: string }) => {
   return (
     <Stack style={{ marginRight: 30 }}>
       <Stack
