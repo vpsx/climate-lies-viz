@@ -82,7 +82,7 @@ const ChartRacePlot: React.FC = () => {
     <div>
       <Typography style={titleStyle}>Climate </Typography>
       <Typography style={titleStyle}>&nbsp;</Typography>
-      <Typography style={{ ...titleStyle, color: cLThemeColors.red }}>
+      <Typography style={{ ...titleStyle, color: cLThemeColors.lieRed }}>
         Lies
       </Typography>
       <Typography style={titleStyle}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
@@ -92,7 +92,7 @@ const ChartRacePlot: React.FC = () => {
         <DateSlider onChange={handleChange} />
       </Stack>
       <Stack style={{ height: 25 }} />
-      <ChartRaceLegend/>
+      <ChartRaceLegend />
       <ChartRace
         data={data}
         backgroundColor={cLThemeColors.cream}

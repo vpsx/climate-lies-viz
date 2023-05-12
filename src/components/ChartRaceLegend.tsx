@@ -13,11 +13,10 @@ const ChartRaceLegendItem: React.FC<{
   color: string;
 }> = (props: { title: string; color: string }) => {
   return (
-    <Stack style={{ marginRight: 30 }}>
+    <Stack style={{ marginRight: 30 ,   maxWidth:200,}}>
       <Stack
         style={{
-          height: 30,
-          width: "100%",
+          height: 30,        
           backgroundColor: props.color,
           borderRadius: 3,
         }}

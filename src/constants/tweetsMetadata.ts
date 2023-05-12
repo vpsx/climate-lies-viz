@@ -37,7 +37,7 @@ const climateArguments: {
 
   const superClaims = {
     "1": {title: "Global warming is not happening" , color: cLThemeColors.red},
-    "2": {title: "Human Greenhouse Gases are not causing global warming" , color: cLThemeColors.pink},
+    "2": {title: "Human GHGs are not causing global warming" , color: cLThemeColors.pink},
     "3": {title: "Climate impacts are not bad" , color: cLThemeColors.yellow},
     "4": {title: "Climate solutions won't work" , color: cLThemeColors.blue},
     "5": {title: "Climate movement/science is unreliable" , color: cLThemeColors.grey}
