@@ -80,7 +80,9 @@ const ChartRacePlot: React.FC = () => {
 
   return (
     <div>
-      <Typography style={titleStyle}>Climate </Typography>
+      <Typography style={titleStyle}>
+        Number of tweets related to climate
+      </Typography>
       <Typography style={titleStyle}>&nbsp;</Typography>
       <Typography style={{ ...titleStyle, color: cLThemeColors.lieRed }}>
         Lies
